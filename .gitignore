@@ -1,0 +1,7 @@
+.DS_Store
+.idea
+.srl
+/cluster/certs
+/monitoring/certs
+/monitoring/grafana/grafana.db
+/monitoring/grafana/grafana.db/grafana.db

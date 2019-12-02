@@ -1,0 +1,52 @@
+---
+version: '3.7'
+
+networks:
+  default:
+    external:
+      name: kafka_network
+
+services:
+
+  prometheus:
+    hostname: prometheus
+    container_name: kafka_prometheus
+    image: prom/prometheus
+    privileged: true
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - '9090:9090'
+
+  grafana:
+    hostname: grafana
+    container_name: kafka_grafana
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: grafana
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+    volumes:
+      - ./grafana/grafana.db:/var/lib/grafana
+      - ./grafana/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml
+      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+  kafkahq:
+    hostname: kafkahq
+    container_name: kafka_kafkahq
+    image: tchiotludo/kafkahq:latest
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./certs:/certs
+      - ./kafkahq.yml:/app/application.yml
+  
+  kafka-exporter:
+    hostname: kafka-exporter
+    container_name: kafka_kafka-exporter
+    image: danielqsj/kafka-exporter:latest
+    ports:
+      - '9308:9308'
+    command: --kafka.server=broker-1:9092 --kafka.server=broker-2:9092 --kafka.server=broker-3:9092

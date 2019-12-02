@@ -1,0 +1,31 @@
+#!/bin/sh
+
+PARTITIONS=10
+COMPRESSION_TYPE=producer
+
+if [ $# -ne 1 ]; then
+  echo "usage: $0 topic"
+  exit
+fi
+
+ZK=localhost:2181
+
+kafka-topics \
+	--zookeeper $ZK \
+	--create \
+	--partitions $PARTITIONS \
+	--replication-factor 3 \
+	--topic $1
+
+#	--config compression.type=$COMPRESSION_TYPE 
+
+echo ""
+echo "Topic Configuration"
+echo ""
+
+kafka-configs \
+	--zookeeper $ZK \
+	--describe \
+	--entity-type topics \
+	--entity-name $1
+
