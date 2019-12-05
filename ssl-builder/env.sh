@@ -3,7 +3,7 @@
 # location to create certificates
 CERTS=../cluster/certs
 
-declare -a MACHINES=("broker-1" "broker-2" "broker-3")
+declare -a MACHINES=("broker-1" "broker-2" "broker-3" "broker-4")
 
 # the password of the root authority certificate
 CA_PASSWORD=ca_secret

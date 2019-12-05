@@ -54,6 +54,10 @@ metrics from the cluster into prometheus.
 | broker-3  | 39092 | 39092 | Docker host plaintext port for client connection to the broker. |
 | broker-3  | 7071 | 37071 | Prometheus JMX endpoint |
 | broker-3  | 7072 | 37072 | Joloika JMX endpoint |
+| broker-4  | 9092 | - | Internal plaintext port for client connection to the broker. |
+| broker-4  | 49092 | 49092 | Docker host plaintext port for client connection to the broker. |
+| broker-4  | 7071 | 47071 | Prometheus JMX endpoint |
+| broker-4  | 7072 | 47072 | Joloika JMX endpoint |
 | schema-registry | 8081 | 8081 | standard point for accessing and registing Avro schemas |
 
 ## Monitoring
